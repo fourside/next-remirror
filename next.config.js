@@ -5,5 +5,6 @@ module.exports = withLinaria({
   linaria: {
     displayName: true,
   },
+  target: "experimental-serverless-trace",
   reactStrictMode: true,
 });
