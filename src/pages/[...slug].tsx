@@ -1,11 +1,18 @@
 import { css } from "linaria";
 import type { NextPage } from "next";
+import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 import { Editor } from "../editor";
 
-const Index: NextPage = () => {
+const IdPage: NextPage = () => {
+  const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const [value, setValue] = useState(`Initial content`);
+
+  const slug = router.query["slug"];
+  if (slug !== undefined && !Array.isArray(slug)) {
+    throw new Error("slug query is not array or undefined");
+  }
 
   const handleChange = useCallback((value: string) => {
     console.log({ value });
@@ -32,8 +39,13 @@ const Index: NextPage = () => {
     return null;
   }
 
+  if (slug === undefined) {
+    return <div>loading</div>;
+  }
+
   return (
     <div className={container}>
+      <h1 className={title}>remirror editor: id: {slug[0]}</h1>
       <Editor value={value} onChange={handleChange} />
       <div>
         <button className={button} onClick={handleSaveClick}>
@@ -47,10 +59,14 @@ const Index: NextPage = () => {
   );
 };
 
-export default Index;
+export default IdPage;
 
 const container = css`
   padding: 32px;
+`;
+
+const title = css`
+  font-weight: normal;
 `;
 
 const button = css`

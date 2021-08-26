@@ -1,7 +1,6 @@
 import { useCallback, useEffect, VFC } from "react";
 import { Remirror, useRemirror } from "@remirror/react";
 import { RemirrorEventListenerProps } from "remirror";
-import { css } from "linaria";
 
 interface Props {
   value: string;
@@ -33,12 +32,7 @@ export const Editor: VFC<Props> = (props) => {
 
   return (
     <div>
-      <h1 className={title}>remirror editor</h1>
       <Remirror manager={manager} state={state} onChange={handleSetState} autoRender={true} />
     </div>
   );
 };
-
-const title = css`
-  font-weight: normal;
-`;
